@@ -1,0 +1,73 @@
+body {
+    background-image: url(/Users/briandunn/Desktop/VP.jpg);
+    background-size: cover;
+    background-attachment: fixed;	
+
+}
+h4 { 
+    font-size: 50px;
+    color: red;
+    text-align: center;
+}
+h4 { 
+    font-size: 50px;
+    color: red;
+    text-align: center;
+}
+
+p{
+    font-size: 60px;
+    color:red;
+    text-align: center;
+}
+
+p{ 
+    font-size: 60px;
+    color:red;
+    text-align: center;
+}
+.hyperlinks{
+    font-size: 60px;
+    color:red;
+    text-align: center; 
+}
+
+.center{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+}
+
+label{
+    color: aliceblue;
+    font-size: 100;
+
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(53, 15, 88); */
+}
+
+li {
+  float: left;
+  text-align: center;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 20px 16px;
+  text-decoration: none;
+  font-style: italic;
+}
+
+li a:hover {
+    background-color: rgb(220, 122, 240);
+}
+
