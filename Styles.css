@@ -2,7 +2,6 @@ body {
     background-image: url(/Users/briandunn/Desktop/VP.jpg);
     background-size: cover;
     background-attachment: fixed;	
-
 }
 h4 { 
     font-size: 50px;
@@ -40,7 +39,6 @@ p{
 }
 
 label{
-    color: aliceblue;
     font-size: 100;
 
 }

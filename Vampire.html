@@ -4,7 +4,11 @@
 		<meta charset="utf-8">
 		<title>My Personal Website</title>
 		<link rel="stylesheet" href="Styles.css">
-
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script defer type="text/javascript" src="app.js"></script>/>
 	</head>
 
 	<body>
@@ -17,10 +21,35 @@
 		  <li><a href="Vampire.html">Vampire</a></li>
 		</ul>
 		<div class= "content"></div>
-		<div>
-				<img src="/Users/briandunn/desktop/vampire.jpg" alt="Vampire" class = "center">
+		<div class="container">
 			<h4></h4>
-			
+    <div class="form-group">
+		<label for="modelLogicSelect">Select Model Logic:</label>
+		<select class="form-control" id="modelLogicSelect">
+		  <option value="1">Random Guess</option>
+		  <option value="2" selected>Threshold Based Method</option>
+		  <option value="3">Decision Tree</option>
+		  <option value="4">Neural Network</option>
+		</select>   
+	  </div>
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
+	  <table class="table table-bordered" id="classmate_table">
+		<caption>Classmates</caption>
+		<thead>
+		  <tr>
+			<th>Name</th>
+			<th>Complexion</th>
+			<th>Has Shadow</th>
+			<th>Eats Garlic</th>
+			<th>Is Vampire</th>
+		  </tr>
+		</thead>
+		<tbody>
+		</tbody>
+		<tfoot>
+		</tfoot>
+	  </table>			  
 		</div>
 
 	</body>
