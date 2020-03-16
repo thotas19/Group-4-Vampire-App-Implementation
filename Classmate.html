@@ -4,7 +4,11 @@
 		<meta charset="utf-8">
 		<title>My Personal Website</title>
 		<link rel="stylesheet" href="Styles.css">
-
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script defer type="text/javascript" src="app.js"></script>/>
 	</head>
 
 	<body>
@@ -12,16 +16,27 @@
 		<ul>
 			<!-- active indicates the active page or link, the page or link you are in -->
 		  <li><a href="example_09_background.html">Home</a></li>
-		  <li><a class="active" href="Introduction.html">Introduction</a></li>
-		  <li><a>Classmate</a></li>
+		  <li><a href="Introduction.html">Introduction</a></li>
+		  <li><a class="active" >Classmate</a></li>
 		  <li><a href="Vampire.html">Vampire</a></li>
 		</ul>
 		<div class= "content"></div>
-		<div>
-			<a class="hyperlinks" href="Questions.html"><p style="text-align:center">Brian</p></a> 
-			<a class="hyperlinks" href="Questions.html"><p style="text-align:center">Shawn</p></a> 
-			<a class="hyperlinks" href="Questions.html"><p style="text-align:center">Sruthi</p></a> 
-		</div>
+		<table class="table table-bordered" id="classmate_table">
+			<caption>Classmates</caption>
+			<thead>
+			  <tr>
+				<th>Name</th>
+				<th>Complexion</th>
+				<th>Has Shadow</th>
+				<th>Eats Garlic</th>
+				<th>Is Vampire</th>
+			  </tr>
+			</thead>
+			<tbody>
+			</tbody>
+			<tfoot>
+			</tfoot>
+		  </table>	
 
 	</body>
 </html>

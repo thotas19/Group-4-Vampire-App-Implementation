@@ -69,3 +69,55 @@ li a:hover {
     background-color: rgb(220, 122, 240);
 }
 
+.name {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg=="); 
+    background-repeat: no-repeat; 
+    background-attachment: scroll; 
+    background-size: 16px 18px; 
+    background-position: 98% 50%; 
+    cursor: auto;
+}
+.classmate-form {
+    display: inline-block;
+}
+.classmate-form-row {
+    min-width: 100px;
+    max-width: 250px;
+}
+.classmate-form-row input[type="text"] {
+    line-height: normal;
+    padding: 3px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+.classmate-form-row select {
+    padding: 3px 0;
+}
+.classmate-form-row select:invalid {
+    color: gray;
+}
+.classmate-form-row select:invalid > option {
+    color: black;
+}
+.classmate-form-row label:first-child {
+    width: 100px;
+    text-align: right;
+    margin-right: 10px;
+}
+.classmate-form-row label {
+    margin-right: 5px;
+}
+.classmate-form-row label > input[type="radio"]{
+    margin-right: 5px;
+}
+.classmate-form-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.classmate-form-actions > button {
+    margin-left: 10px;
+}
+.classmate-form-actions > button:first-child {
+    margin-left: 0;
+}

@@ -1,7 +1,12 @@
 (function app() {
     // array of json objects
+     var vampireTest = window.sessionStorage.getItem("vampire_test");
+    if(!vampireTest){
+        vampireTest = "2";
+        window.sessionStorage.setItem("vampire_test", vampireTest);
+    }
     var classmate_data;
-    if (window.sessionStorage.key("classmate_data")) {
+    if (window.sessionStorage.getItem("classmate_data")) {
         try {
             classmate_data = JSON.parse(window.sessionStorage.getItem("classmate_data"));
         } catch (e) {
@@ -41,16 +46,29 @@
                 'complexion': 'brown'
             }
         ];
-        window.sessionStorage.setItem("classmate_data", JSON.stringify(classmate_data));
+        processClassmates(classmate_data);
     }
 
-    // Load the Visualization API and the corechart package.
-    google.charts.load('current', { 'packages': ['corechart'] });
+    var modelLogicSelect = document.getElementById('modelLogicSelect');
+    if(modelLogicSelect) {
+        modelLogicSelect.value=vampireTest;
 
-    // Set a callback to run when the Google Visualization API is loaded.
-    google.charts.setOnLoadCallback(drawChart);
+        modelLogicSelect.onchange = function (e) { 
+            vampireTest = e.target.value;
+            window.sessionStorage.setItem("vampire_test", vampireTest);
+            processClassmates(classmate_data);
+            drawChart(); 
+        };
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', { 'packages': ['corechart'] });
 
-    document.getElementById('modelLogicSelect').onchange = function () { drawChart(); };
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart);
+    }
+    var classmateTable = document.getElementById('classmate_table');
+    if(classmateTable){
+        populateTable(classmate_data, 'classmate_table');
+    }
     // Callback that creates and populates a data table,
     // instantiates the pie chart, passes in the data and
     // draws it.
@@ -70,14 +88,10 @@
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
     }
-
-    // model of MVC
-    // function classmate_data_processing(input_data, result_data){
-    function classmate_data_processing(classmate_data) {
-        var select = document.getElementById('modelLogicSelect');
+    function processClassmates(classmateData) {
         var isVampire;
-        var val = select.options[select.selectedIndex].value;
-        switch (val) {
+
+        switch (vampireTest) {
             case "2":
                 isVampire = isVampireThreshold
                 break;
@@ -85,17 +99,23 @@
                 isVampire = isVampireRandom
                 break;
         }
+        for (var i = 0; i <= classmate_data.length - 1; i++) {
+            var classmate = classmate_data[i]
+            classmate.vampire = isVampire(classmate);
+        }
+
+        window.sessionStorage.setItem("classmate_data", JSON.stringify(classmate_data));
+    }
+
+    function classmate_data_processing(classmate_data) {
         var result_data = new google.visualization.DataTable();
         // this function process classmate data and create data table
         var num_human = 0;
         var num_vampire = 0;
 
-        var tbodyHtml = [];
         for (var i = 0; i <= classmate_data.length - 1; i++) {
             var classmate = classmate_data[i]
-            classmate.vampire = isVampire(classmate);
-            tbodyHtml.push(rowTemplate(classmate));
-
+ 
             if (classmate.vampire) {
                 num_vampire++;
             }
@@ -103,9 +123,8 @@
                 num_human++;
             }
         }
-        window.sessionStorage.setItem("classmate_data", JSON.stringify(classmate_data));
-        var tbody = document.getElementById('classmate_table').getElementsByTagName('tbody')[0];
-        tbody.innerHTML = tbodyHtml.join('');
+        populateTable(classmate_data, 'classmate_table');
+
         // Create the data table.
         result_data.addColumn('string', 'Element');
         result_data.addColumn('number', 'Count');
@@ -114,6 +133,14 @@
             ['Vampire', num_vampire]
         ]);
         return result_data;
+    }
+    function populateTable(classmateData, tableId) {
+        var tbodyHtml = [];
+        for (var i = 0; i <= classmateData.length - 1; i++) {
+            tbodyHtml.push(rowTemplate(classmate_data[i]));
+        }
+        var tbody = document.getElementById(tableId).getElementsByTagName('tbody')[0];
+        tbody.innerHTML = tbodyHtml.join('');
     }
     function rowTemplate(classmate){
         return '<tr>' + 
