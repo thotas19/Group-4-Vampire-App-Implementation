@@ -88,6 +88,43 @@
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
     }
+
+    var addButton = document.getElementById('classmate_add_button');
+    if(addButton) {
+        addButton.addEventListener("click", function(){
+            var $popup = $('#classmate_add_popup');
+            $popup.css("display", "block");
+            var form = $popup.find('.classmate-form')[0];
+            form.reset();
+            this.disabled = true;
+        });
+    }
+    $('.classmate-form .classmate-cancel-button').on('click', function(){
+        var $popup = $('#classmate_add_popup');
+        $popup.css("display", "none");
+        var form = $popup.find('.classmate-form')[0];
+        form.reset();
+        $('#classmate_add_button').prop("disabled", false);
+    });
+    $('.classmate-form .classmate-save-button').on('click', function(){
+        var $popup = $('#classmate_add_popup');
+        $popup.css("display", "none");
+        var form = $popup.find('.classmate-form')[0];
+        var newClassmate = {
+            name: form.elements["name"].value,
+            complexion: form.elements["complexion"].value,
+            garlic: form.elements["garlic"].value,
+            shadow: form.elements["shadow"].value
+        };
+        addClassmate(newClassmate);
+        form.reset();
+        $('#classmate_add_button').prop("disabled", false);
+    });
+    function addClassmate(newClassmate){
+        classmate_data.push(newClassmate);
+        processClassmates(classmate_data);
+        populateTable(classmate_data, 'classmate_table');
+    }
     function processClassmates(classmateData) {
         var isVampire;
 

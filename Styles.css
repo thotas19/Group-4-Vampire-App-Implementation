@@ -77,8 +77,15 @@ li a:hover {
     background-position: 98% 50%; 
     cursor: auto;
 }
+#classmate_add_popup {
+    display: none;
+}
+
 .classmate-form {
     display: inline-block;
+}
+.classmate-form:invalid .classmate-save-button {
+    display: none;
 }
 .classmate-form-row {
     min-width: 100px;
