@@ -48,7 +48,39 @@
 		</tbody>
 		<tfoot>
 		</tfoot>
-	  </table>			  
+	  </table>
+	  <button type="button" id="classmate_add_button">Add</button>
+	  <div id="classmate_add_popup">
+		  <form class="classmate-form">
+			  <div class="classmate-form-row">
+				  <input type="text" name="name" placeholder="Name" required>
+			  </div>
+			  <div class="classmate-form-row">
+				  <label for="complexion">Complexion</label>
+				  <select name="complexion" placeholder="Complexion" required>
+					  <option value="" disabled selected hidden>Choose one...</option>
+					  <option value="pale">Pale</option>
+					  <option value="olive">Olive</option>
+					  <option value="brown">Brown</option>
+				  </select>
+			  </div>
+			  <div class="classmate-form-row">
+				  <label>Eats Garlic</label>
+				  <label><input type="radio" name="garlic" value="yes" required>Yes</label>
+				  <label><input type="radio" name="garlic" value="no" required>No</label>
+			  </div>
+			  <div class="classmate-form-row">
+				  <label>Has Shadow</label>
+				  <label><input type="radio" name="shadow" value="yes" required>Yes</label>
+				  <label><input type="radio" name="shadow" value="no" required>No</label>
+			  </div>
+			  <div class="classmate-form-actions">
+				  <button type="button" class="classmate-save-button">Save</button>
+				  <button type="button" class="classmate-cancel-button">Cancel</button>
+			  </div>
+		  </form>
+	  </div>
+	 
 		</div>
 
 	</body>

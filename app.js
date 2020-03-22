@@ -1,6 +1,9 @@
 (function app() {
-    // array of json objects
-     var vampireTest = window.sessionStorage.getItem("vampire_test");
+    // we initialize the data here if it is not already present in session storage.
+    // sessionstorage was chosen as simple means of peristing data between page reloads and
+    // transitions.
+    var vampireTest = window.sessionStorage.getItem("vampire_test");
+    // if the vampireTest value is not in sessionStorage set the defaults
     if(!vampireTest){
         vampireTest = "2";
         window.sessionStorage.setItem("vampire_test", vampireTest);
@@ -13,6 +16,7 @@
             // doing nothing for now
         }
     }
+    // we initialize our classmate_data if it is not already in sessionStorage or the data is corrupted
     if (!classmate_data) {
         classmate_data = [
             {
@@ -49,6 +53,10 @@
         processClassmates(classmate_data);
     }
 
+    // Render dynamic UI and wire up all the UI interaction behavior
+    // The click and change events would be controller related The dynamic UI could be considered controller  
+    // we will categorize these as primarily View for now.
+
     var modelLogicSelect = document.getElementById('modelLogicSelect');
     if(modelLogicSelect) {
         modelLogicSelect.value=vampireTest;
@@ -73,9 +81,7 @@
     // instantiates the pie chart, passes in the data and
     // draws it.
     function drawChart() {
-
-        // classmate_data_processing(classmate_data, data);
-        var data = classmate_data_processing(classmate_data);
+        var data = buildDataTable(classmate_data);
 
         // Set chart options
         var options = {
@@ -120,34 +126,10 @@
         form.reset();
         $('#classmate_add_button').prop("disabled", false);
     });
-    function addClassmate(newClassmate){
-        classmate_data.push(newClassmate);
-        processClassmates(classmate_data);
-        populateTable(classmate_data, 'classmate_table');
-    }
-    function processClassmates(classmateData) {
-        var isVampire;
 
-        switch (vampireTest) {
-            case "2":
-                isVampire = isVampireThreshold
-                break;
-            case "3":
-                isVampire = isVampireDecisionTree
-                break;
-            default:
-                isVampire = isVampireRandom
-                break;
-        }
-        for (var i = 0; i <= classmate_data.length - 1; i++) {
-            var classmate = classmate_data[i]
-            classmate.vampire = isVampire(classmate);
-        }
-
-        window.sessionStorage.setItem("classmate_data", JSON.stringify(classmate_data));
-    }
-
-    function classmate_data_processing(classmate_data) {
+    // build the clasmate data table
+    // This is View behavior
+    function buildDataTable(classmate_data) {
         var result_data = new google.visualization.DataTable();
         // this function process classmate data and create data table
         var num_human = 0;
@@ -174,6 +156,8 @@
         ]);
         return result_data;
     }
+    // populate the table with details from classmate data
+    // This is View behavior
     function populateTable(classmateData, tableId) {
         var tbodyHtml = [];
         for (var i = 0; i <= classmateData.length - 1; i++) {
@@ -182,6 +166,14 @@
         var tbody = document.getElementById(tableId).getElementsByTagName('tbody')[0];
         tbody.innerHTML = tbodyHtml.join('');
     }
+
+    /**
+     * Creates a table row
+     * 
+     * @param {*} classmate classmate data record
+     * 
+     * @returns html for a table row.
+     */
     function rowTemplate(classmate){
         return '<tr>' + 
         createCell(classmate.name) +  
@@ -191,9 +183,70 @@
         createCell(classmate.vampire ? 'yes' : 'no') + 
         '</tr>';
     }
+    /**
+     * Wraps data in td tags
+     *  
+     * @param {*} data string data to be placed in cell
+     * 
+     * @returns html for a table cell
+     */
     function createCell(data){
         return '<td>' + data + '</td>';
     }
+
+    /**
+     * Add a new record to the classmate data
+     * This is akin to a controller action since we are responding to user input
+     * 
+     * @param {*} newClassmate new classmate record to added to classmate_data
+     * 
+     */
+    function addClassmate(newClassmate){
+        classmate_data.push(newClassmate);
+        // we need to process the data after save so it is saved to session storage.
+        // for now we just process the whole dataset for simplicity.
+        processClassmates(classmate_data);
+        // refresh the table
+        populateTable(classmate_data, 'classmate_table');
+    }
+
+    // The portion below is part of the Model
+
+    /**
+     * Process classmate data based on the selected method of vampire test
+     * and updated session storage.
+     * 
+     * @param {*} classmateData array of classmate data to process
+     */
+    function processClassmates(classmateData) {
+        var isVampire;
+
+        switch (vampireTest) {
+            case "2":
+                isVampire = isVampireThreshold
+                break;
+            case "3":
+                isVampire = isVampireDecisionTree
+                break;
+            default:
+                isVampire = isVampireRandom
+                break;
+        }
+        for (var i = 0; i <= classmate_data.length - 1; i++) {
+            var classmate = classmate_data[i]
+            classmate.vampire = isVampire(classmate);
+        }
+
+        window.sessionStorage.setItem("classmate_data", JSON.stringify(classmate_data));
+    }
+
+    /**
+     * Check if classmate is vampire using threshold method
+     * 
+     * @param {*} data record to be checked
+     * 
+     * @returns boolean indicating whether this person is a vampire
+     */
     function isVampireThreshold(data) {
         var score = 0;
         if (data.shadow === 'no') {
@@ -208,9 +261,25 @@
 
         return score > 6;
     }
+
+    /**
+     * Check if classmate is vampire using random method
+     * 
+     * @param {*} data record to be checked
+     * 
+     * @returns boolean indicating whether this person is a vampire
+     */
     function isVampireRandom(data) {
         return Math.floor(Math.random() * 2) === 0
     }
+
+    /**
+     * Check if classmate is vampire using decision tree method
+     * 
+     * @param {*} data record to be checked
+     * 
+     * @returns boolean indicating whether this person is a vampire
+     */
     function isVampireDecisionTree(data) {
         if(data.shadow==='no') {
             return true;
