@@ -132,6 +132,9 @@
             case "2":
                 isVampire = isVampireThreshold
                 break;
+            case "3":
+                isVampire = isVampireDecisionTree
+                break;
             default:
                 isVampire = isVampireRandom
                 break;
@@ -207,5 +210,23 @@
     }
     function isVampireRandom(data) {
         return Math.floor(Math.random() * 2) === 0
+    }
+    function isVampireDecisionTree(data) {
+        if(data.shadow==='no') {
+            return true;
+        }
+        if(data.shadow==='yes') {
+            return false;
+        }
+        if(data.garlic==='yes') {
+            return false;
+        }
+        if(data.garlic==='no') {
+            return true;
+        }
+        if(data.complexion==='pale') {
+            return true;
+        }
+        return false;
     }
 })();
